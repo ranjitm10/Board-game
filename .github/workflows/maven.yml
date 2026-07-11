@@ -5,6 +5,37 @@ on:
     branches: [ "main" ]
 
 jobs:
+  compile:
+    name: compile-project
+    runs-on: ubuntu-latest
+    
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B compile --file pom.xml
+
+  test:
+    name: execute unit test Project
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B test --file pom.xml
+
   build:
 
     runs-on: ubuntu-latest
