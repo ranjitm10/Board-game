@@ -1,26 +1,24 @@
 pipeline {
     agent any
- 
-    environment {
-        PATH = "/opt/homebrew/bin:${env.PATH}"
-    }
     
-    stages {   
+    tools {
+        maven 'maven3.10'
+        jdk 'jdk17'
+    }
+    stages {
         stage('Compile') {
             steps {
-                sh 'mvn compile'
+              sh 'mvn compile'
             }
         }
-        
-        stage('Test') {
+        stage('test') {
             steps {
-                sh 'mvn test'
+              sh 'mvn test'
             }
         }
-        
-        stage('Build') {
+        stage('package') {
             steps {
-                sh 'mvn package'
+              sh 'mvn package'
             }
         }
     }
